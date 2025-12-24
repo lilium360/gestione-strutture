@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
-  selector: 'app-error-state',
-  standalone: true,
-  imports: [CommonModule, LucideAngularModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './error-state.component.html',
-  styleUrl: './error-state.component.scss'
+    selector: 'app-error-state',
+    imports: [CommonModule, LucideAngularModule],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './error-state.component.html',
+    styleUrl: './error-state.component.scss'
 })
 export class ErrorStateComponent {
   @Input() title = 'Something went wrong';

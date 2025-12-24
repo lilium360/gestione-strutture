@@ -16,21 +16,20 @@ import {
 import * as L from 'leaflet';
 
 @Component({
-  selector: 'app-structure-detail',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-    LucideAngularModule,
-    PageHeaderComponent,
-    LoadingStateComponent,
-    EmptyStateComponent,
-    ErrorStateComponent,
-    ConfirmDialogComponent
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './structure-detail.component.html',
-  styleUrl: './structure-detail.component.scss'
+    selector: 'app-structure-detail',
+    imports: [
+        CommonModule,
+        RouterLink,
+        LucideAngularModule,
+        PageHeaderComponent,
+        LoadingStateComponent,
+        EmptyStateComponent,
+        ErrorStateComponent,
+        ConfirmDialogComponent
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './structure-detail.component.html',
+    styleUrl: './structure-detail.component.scss'
 })
 export class StructureDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() id!: string;

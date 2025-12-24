@@ -15,7 +15,6 @@ import {
 
 @Component({
     selector: 'app-features-list',
-    standalone: true,
     imports: [
         CommonModule,
         RouterLink,

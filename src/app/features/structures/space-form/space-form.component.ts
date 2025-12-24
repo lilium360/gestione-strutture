@@ -10,12 +10,11 @@ import { CreateSpaceDto, SpaceType, SPACE_TYPE_LABELS, Feature, CreateFeatureDto
 import { PageHeaderComponent } from '../../../shared/components';
 
 @Component({
-  selector: 'app-space-form',
-  standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule, LucideAngularModule, PageHeaderComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './space-form.component.html',
-  styleUrl: './space-form.component.scss'
+    selector: 'app-space-form',
+    imports: [CommonModule, RouterLink, ReactiveFormsModule, LucideAngularModule, PageHeaderComponent],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './space-form.component.html',
+    styleUrl: './space-form.component.scss'
 })
 export class SpaceFormComponent implements OnInit {
   @Input() structureId!: string;

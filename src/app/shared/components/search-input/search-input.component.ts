@@ -4,12 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
-  selector: 'app-search-input',
-  standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './search-input.component.html',
-  styleUrl: './search-input.component.scss'
+    selector: 'app-search-input',
+    imports: [CommonModule, FormsModule, LucideAngularModule],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './search-input.component.html',
+    styleUrl: './search-input.component.scss'
 })
 export class SearchInputComponent {
   @Input() value = '';

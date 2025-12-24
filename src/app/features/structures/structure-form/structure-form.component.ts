@@ -9,12 +9,11 @@ import { PageHeaderComponent } from '../../../shared/components';
 import * as L from 'leaflet';
 
 @Component({
-  selector: 'app-structure-form',
-  standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule, LucideAngularModule, PageHeaderComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './structure-form.component.html',
-  styleUrl: './structure-form.component.scss'
+    selector: 'app-structure-form',
+    imports: [CommonModule, RouterLink, ReactiveFormsModule, LucideAngularModule, PageHeaderComponent],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './structure-form.component.html',
+    styleUrl: './structure-form.component.scss'
 })
 export class StructureFormComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() id?: string;

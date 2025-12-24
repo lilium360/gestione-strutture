@@ -10,12 +10,11 @@ interface NavItem {
 }
 
 @Component({
-  selector: 'app-main-layout',
-  standalone: true,
-  imports: [CommonModule, RouterModule, RouterLink, RouterLinkActive, LucideAngularModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './main-layout.component.html',
-  styleUrl: './main-layout.component.scss'
+    selector: 'app-main-layout',
+    imports: [CommonModule, RouterModule, RouterLink, RouterLinkActive, LucideAngularModule],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './main-layout.component.html',
+    styleUrl: './main-layout.component.scss'
 })
 export class MainLayoutComponent implements OnInit {
   private readonly platformId = inject(PLATFORM_ID);
