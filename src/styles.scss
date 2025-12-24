@@ -595,6 +595,8 @@ body {
     border-radius: var(--radius);
     overflow: hidden;
     background: hsl(var(--muted));
+    position: relative;
+    z-index: 1;
 }
 
 .map-hint {
