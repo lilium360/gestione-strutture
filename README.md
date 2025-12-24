@@ -135,7 +135,7 @@ A modern Single Page Application for managing a catalog of physical structures, 
 | Technology | Version | Purpose |
 |------------|---------|---------|
 | **TailwindCSS** | 4.1.18 | Utility-first CSS framework |
-| **Spartan UI** | 0.0.1-alpha.584 | Angular headless UI components base |
+| **Spartan UI** | 0.0.1-alpha.563 | Angular headless UI components base |
 | **Lucide Angular** | 0.562.0 | Modern, customizable icon library |
 | **SCSS** | - | Enhanced CSS with variables and mixins |
 
@@ -151,7 +151,7 @@ A modern Single Page Application for managing a catalog of physical structures, 
 | Technology | Version | Purpose |
 |------------|---------|---------|
 | **Angular CLI** | 19.2.19 | Project scaffolding and build tooling |
-| **angular-in-memory-web-api** | 0.21.0 | Mock REST API simulation |
+| **angular-in-memory-web-api** | 0.19.0 | Mock REST API simulation |
 | **Karma/Jasmine** | 6.4.0/5.2.0 | Unit testing framework |
 | **PostCSS** | 8.5.6 | CSS processing pipeline |
 
