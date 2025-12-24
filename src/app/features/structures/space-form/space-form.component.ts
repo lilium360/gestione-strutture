@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, inject, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
-import { RouterLink, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
 import { SpacesFacade } from '../../../core/services/spaces.facade';
@@ -10,11 +10,11 @@ import { CreateSpaceDto, SpaceType, SPACE_TYPE_LABELS, Feature, CreateFeatureDto
 import { PageHeaderComponent } from '../../../shared/components';
 
 @Component({
-    selector: 'app-space-form',
-    imports: [CommonModule, RouterLink, ReactiveFormsModule, LucideAngularModule, PageHeaderComponent],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: './space-form.component.html',
-    styleUrl: './space-form.component.scss'
+  selector: 'app-space-form',
+  imports: [CommonModule, ReactiveFormsModule, LucideAngularModule, PageHeaderComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './space-form.component.html',
+  styleUrl: './space-form.component.scss'
 })
 export class SpaceFormComponent implements OnInit {
   @Input() structureId!: string;

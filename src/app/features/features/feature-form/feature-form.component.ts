@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
-import { RouterLink, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
 import { FeaturesFacade } from '../../../core/services/features.facade';
@@ -8,11 +8,11 @@ import { CreateFeatureDto, FeatureCategory, FEATURE_CATEGORY_LABELS } from '../.
 import { PageHeaderComponent } from '../../../shared/components';
 
 @Component({
-    selector: 'app-feature-form',
-    imports: [CommonModule, RouterLink, ReactiveFormsModule, LucideAngularModule, PageHeaderComponent],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: './feature-form.component.html',
-    styleUrl: './feature-form.component.scss'
+  selector: 'app-feature-form',
+  imports: [CommonModule, ReactiveFormsModule, LucideAngularModule, PageHeaderComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './feature-form.component.html',
+  styleUrl: './feature-form.component.scss'
 })
 export class FeatureFormComponent implements OnInit {
   @Input() id?: string;

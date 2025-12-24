@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Input, inject, ChangeDetectionStrategy, AfterViewInit, ElementRef, ViewChild, signal } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
-import { RouterLink, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
 import { StructuresFacade } from '../../../core/services/structures.facade';
@@ -9,11 +9,11 @@ import { PageHeaderComponent } from '../../../shared/components';
 import * as L from 'leaflet';
 
 @Component({
-    selector: 'app-structure-form',
-    imports: [CommonModule, RouterLink, ReactiveFormsModule, LucideAngularModule, PageHeaderComponent],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: './structure-form.component.html',
-    styleUrl: './structure-form.component.scss'
+  selector: 'app-structure-form',
+  imports: [CommonModule, ReactiveFormsModule, LucideAngularModule, PageHeaderComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './structure-form.component.html',
+  styleUrl: './structure-form.component.scss'
 })
 export class StructureFormComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() id?: string;
