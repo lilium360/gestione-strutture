@@ -1,0 +1,12 @@
+<div class="search-wrapper">
+  <div class="search-icon">
+    <lucide-icon name="search" [size]="16"></lucide-icon>
+  </div>
+  <input type="text" class="search-input" [placeholder]="placeholder" [ngModel]="value"
+    (ngModelChange)="onValueChange($event)">
+  @if (value) {
+  <button class="clear-btn" (click)="onClear()">
+    <lucide-icon name="x" [size]="14"></lucide-icon>
+  </button>
+  }
+</div>

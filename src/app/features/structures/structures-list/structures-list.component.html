@@ -1,0 +1,64 @@
+<div class="structures-page">
+    <app-page-header title="Structures" subtitle="Manage your buildings and locations">
+        <a routerLink="new" class="btn btn-primary">
+            <lucide-icon name="plus" [size]="16"></lucide-icon>
+            Add Structure
+        </a>
+    </app-page-header>
+
+    <div class="toolbar">
+        <app-search-input [value]="searchTerm" placeholder="Search structures..." (valueChange)="onSearch($event)">
+        </app-search-input>
+    </div>
+
+    @if (facade.loading()) {
+    <app-loading-state message="Loading structures..."></app-loading-state>
+    } @else if (facade.error()) {
+    <app-error-state [message]="facade.error() || undefined" (retry)="loadData()">
+    </app-error-state>
+    } @else if (facade.isEmpty()) {
+    <div class="empty-card">
+        <app-empty-state title="No structures yet" description="Get started by adding your first structure">
+            <a routerLink="new" class="btn btn-primary">Add Your First Structure</a>
+        </app-empty-state>
+    </div>
+    } @else {
+    <div class="list-grid">
+        @for (structure of facade.filteredStructures(); track structure.id) {
+        <div class="list-card">
+            <div class="card-header">
+                <div class="card-icon icon-primary">
+                    <lucide-icon name="building-2" [size]="24"></lucide-icon>
+                </div>
+                <div class="card-actions">
+                    <a [routerLink]="[structure.id, 'edit']" class="icon-btn" title="Edit">
+                        <lucide-icon name="pencil" [size]="16"></lucide-icon>
+                    </a>
+                    <button class="icon-btn icon-btn-danger" (click)="confirmDelete(structure)" title="Delete">
+                        <lucide-icon name="trash-2" [size]="16"></lucide-icon>
+                    </button>
+                </div>
+            </div>
+            <a [routerLink]="[structure.id]" class="card-content">
+                <h3 class="card-title">{{ structure.name }}</h3>
+                <div class="card-meta">
+                    <lucide-icon name="map-pin" [size]="14"></lucide-icon>
+                    <span>{{ structure.city }}</span>
+                </div>
+                <p class="card-address">{{ structure.address }}</p>
+            </a>
+        </div>
+        }
+    </div>
+
+    @if (facade.filteredStructures().length === 0 && searchTerm) {
+    <app-empty-state icon="search" title="No results" description="Try a different search term">
+    </app-empty-state>
+    }
+    }
+
+    <app-confirm-dialog [isOpen]="showDeleteDialog" title="Delete Structure"
+        [message]="'Are you sure you want to delete ' + (structureToDelete?.name || '') + '? This will also remove all associated spaces.'"
+        confirmText="Delete" variant="destructive" (confirm)="onDeleteConfirm()" (cancel)="onDeleteCancel()">
+    </app-confirm-dialog>
+</div>

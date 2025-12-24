@@ -1,0 +1,12 @@
+<div class="error-container">
+    <div class="error-icon">
+        <lucide-icon name="alert-triangle" [size]="40"></lucide-icon>
+    </div>
+    <h3 class="error-title">{{ title }}</h3>
+    @if (message) {
+    <p class="error-message">{{ message }}</p>
+    }
+    @if (showRetry) {
+    <button class="btn btn-primary" (click)="retry.emit()">Try Again</button>
+    }
+</div>

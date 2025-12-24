@@ -1,0 +1,139 @@
+<div class="page-container">
+    @if (structuresFacade.loading()) {
+    <app-loading-state message="Loading structure details..."></app-loading-state>
+    } @else if (structuresFacade.error()) {
+    <app-error-state [message]="structuresFacade.error() || undefined" (retry)="loadData()">
+    </app-error-state>
+    } @else if (structure()) {
+    <app-page-header [title]="structure()!.name" subtitle="Structure Details">
+        <a routerLink="/structures" class="btn btn-outline">
+            <lucide-icon name="arrow-left" [size]="16"></lucide-icon>
+            Back
+        </a>
+        <a [routerLink]="['edit']" class="btn btn-primary">
+            <lucide-icon name="pencil" [size]="16"></lucide-icon>
+            Edit
+        </a>
+    </app-page-header>
+
+    <div class="detail-grid">
+        <div class="info-section">
+            <div class="card">
+                <h3 class="card-title">General Information</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Address</span>
+                        <span class="info-value">{{ structure()!.address }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">City</span>
+                        <span class="info-value">{{ structure()!.city }}</span>
+                    </div>
+                    @if (structure()!.description) {
+                    <div class="info-item full-width">
+                        <span class="info-label">Description</span>
+                        <span class="info-value">{{ structure()!.description }}</span>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Contact Details</h3>
+                <div class="info-grid">
+                    @if (structure()!.openingHours) {
+                    <div class="info-item">
+                        <span class="info-label">Opening Hours</span>
+                        <span class="info-value">{{ structure()!.openingHours }}</span>
+                    </div>
+                    }
+                    @if (structure()!.phone) {
+                    <div class="info-item">
+                        <span class="info-label">Phone</span>
+                        <span class="info-value">
+                            <a href="tel:{{ structure()!.phone }}" class="contact-link">{{ structure()!.phone }}</a>
+                        </span>
+                    </div>
+                    }
+                    @if (structure()!.email) {
+                    <div class="info-item">
+                        <span class="info-label">Email</span>
+                        <span class="info-value">
+                            <a href="mailto:{{ structure()!.email }}" class="contact-link">{{ structure()!.email }}</a>
+                        </span>
+                    </div>
+                    }
+                    @if (!structure()!.openingHours && !structure()!.phone && !structure()!.email) {
+                    <p class="no-data">No contact details available</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="card map-section">
+            <h3 class="card-title">Location</h3>
+            <div #mapContainer class="map-container"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Spaces</h3>
+                <a [routerLink]="['/structures', id, 'spaces', 'new']" class="btn btn-sm btn-primary">
+                    <lucide-icon name="plus" [size]="14"></lucide-icon>
+                    Add Space
+                </a>
+            </div>
+
+            @if (spacesFacade.loading()) {
+            <app-loading-state message="Loading spaces..."></app-loading-state>
+            } @else if (spaces().length === 0) {
+            <app-empty-state icon="folder" title="No spaces yet" description="Add spaces to this structure">
+            </app-empty-state>
+            } @else {
+            <div class="spaces-list">
+                @for (space of spaces(); track space.id) {
+                <div class="space-item">
+                    <div class="space-icon">
+                        <lucide-icon name="home" [size]="18"></lucide-icon>
+                    </div>
+                    <div class="space-info">
+                        <span class="space-name">{{ space.name }}</span>
+                        <span class="space-type">{{ getSpaceTypeLabel(space.type) }}</span>
+                    </div>
+                    <div class="space-meta">
+                        @if (space.capacity) {
+                        <span class="meta-item">
+                            <lucide-icon name="users" [size]="14"></lucide-icon>
+                            {{ space.capacity }}
+                        </span>
+                        }
+                        @if (space.floor) {
+                        <span class="meta-item">Floor {{ space.floor }}</span>
+                        }
+                    </div>
+                    <div class="space-features">
+                        @for (feature of getSpaceFeatures(space); track feature.id) {
+                        <span class="feature-tag">{{ feature.name }}</span>
+                        }
+                    </div>
+                    <div class="space-actions">
+                        <button class="icon-btn" (click)="editSpace(space)" title="Edit">
+                            <lucide-icon name="pencil" [size]="16"></lucide-icon>
+                        </button>
+                        <button class="icon-btn icon-btn-danger" (click)="confirmDeleteSpace(space)" title="Delete">
+                            <lucide-icon name="trash-2" [size]="16"></lucide-icon>
+                        </button>
+                    </div>
+                </div>
+                }
+            </div>
+            }
+        </div>
+    </div>
+    }
+
+    <app-confirm-dialog [isOpen]="showDeleteDialog" title="Delete Space"
+        [message]="'Are you sure you want to delete ' + (spaceToDelete?.name || '') + '?'" confirmText="Delete"
+        variant="destructive" (confirm)="onDeleteSpaceConfirm()" (cancel)="onDeleteSpaceCancel()">
+    </app-confirm-dialog>
+</div>

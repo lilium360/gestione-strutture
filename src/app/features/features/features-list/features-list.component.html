@@ -1,0 +1,76 @@
+<div class="page-container">
+    <app-page-header title="Features" subtitle="Manage amenities and equipment">
+        <a routerLink="new" class="btn btn-primary">
+            <lucide-icon name="plus" [size]="16"></lucide-icon>
+            Add Feature
+        </a>
+    </app-page-header>
+
+    <div class="toolbar">
+        <app-search-input [value]="searchTerm" placeholder="Search features..." (valueChange)="onSearch($event)">
+        </app-search-input>
+        <div class="filter-tabs">
+            <button class="filter-tab" [class.active]="selectedCategory === null" (click)="onCategoryFilter(null)">
+                All
+            </button>
+            @for (category of categories; track category) {
+            <button class="filter-tab" [class.active]="selectedCategory === category"
+                (click)="onCategoryFilter(category)">
+                {{ getCategoryLabel(category) }}
+            </button>
+            }
+        </div>
+    </div>
+
+    @if (facade.loading()) {
+    <app-loading-state message="Loading features..."></app-loading-state>
+    } @else if (facade.error()) {
+    <app-error-state [message]="facade.error() || undefined" (retry)="loadData()">
+    </app-error-state>
+    } @else if (facade.isEmpty()) {
+    <div class="empty-card">
+        <app-empty-state title="No features yet" description="Get started by adding your first feature">
+            <a routerLink="new" class="btn btn-primary">Add Your First Feature</a>
+        </app-empty-state>
+    </div>
+    } @else {
+    <div class="list-grid">
+        @for (feature of facade.filteredFeatures(); track feature.id) {
+        <div class="list-card">
+            <div class="card-header">
+                <div class="card-icon icon-accent">
+                    <lucide-icon [name]="feature.icon" [size]="24"></lucide-icon>
+                </div>
+                <div class="card-actions">
+                    <a [routerLink]="[feature.id, 'edit']" class="icon-btn" title="Edit">
+                        <lucide-icon name="pencil" [size]="16"></lucide-icon>
+                    </a>
+                    <button class="icon-btn icon-btn-danger" (click)="confirmDelete(feature)" title="Delete">
+                        <lucide-icon name="trash-2" [size]="16"></lucide-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">{{ feature.name }}</h3>
+                <span class="category-badge" [attr.data-category]="feature.category">
+                    {{ getCategoryLabel(feature.category) }}
+                </span>
+                @if (feature.description) {
+                <p class="card-description">{{ feature.description }}</p>
+                }
+            </div>
+        </div>
+        }
+    </div>
+
+    @if (facade.filteredFeatures().length === 0 && (searchTerm || selectedCategory)) {
+    <app-empty-state icon="search" title="No results" description="Try a different search term or category">
+    </app-empty-state>
+    }
+    }
+
+    <app-confirm-dialog [isOpen]="showDeleteDialog" title="Delete Feature"
+        [message]="'Are you sure you want to delete ' + (featureToDelete?.name || '') + '?'" confirmText="Delete"
+        variant="destructive" (confirm)="onDeleteConfirm()" (cancel)="onDeleteCancel()">
+    </app-confirm-dialog>
+</div>

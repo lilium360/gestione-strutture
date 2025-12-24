@@ -1,0 +1,62 @@
+// Structure Form Component Styles
+// Form layout from global .form-layout-split in styles.scss
+// Map container from global .map-container in styles.scss
+
+// Component-specific: Form columns layout
+.form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.map-card {
+    position: sticky;
+    top: 88px;
+}
+
+// Address suggestions dropdown (component-specific)
+.address-input-wrapper {
+    position: relative;
+}
+
+.suggestions-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    box-shadow: 0 10px 25px hsl(0 0% 0% / 0.2);
+    z-index: 100;
+    max-height: 240px;
+    overflow-y: auto;
+    margin-top: 4px;
+}
+
+.suggestion-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    padding: 12px;
+    text-align: left;
+    background: transparent;
+    border: none;
+    color: hsl(var(--foreground));
+    font-size: 13px;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: background 0.1s ease;
+}
+
+.suggestion-item:hover,
+.suggestion-item.highlighted {
+    background: hsl(var(--accent));
+}
+
+.suggestion-item svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: hsl(var(--muted-foreground));
+}

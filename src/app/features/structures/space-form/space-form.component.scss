@@ -1,0 +1,167 @@
+// Space Form Component Styles
+// Form layout from global .form-layout-narrow in styles.scss
+// Animations from global @keyframes in styles.scss
+
+// Features Grid (component-specific layout)
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.feature-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: hsl(var(--background));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.feature-checkbox:hover {
+    border-color: hsl(var(--ring));
+}
+
+.feature-checkbox:has(input:checked) {
+    border-color: hsl(var(--primary));
+    background: hsl(var(--primary) / 0.1);
+}
+
+.feature-checkbox input {
+    width: 16px;
+    height: 16px;
+    accent-color: hsl(var(--primary));
+}
+
+.checkbox-label {
+    font-size: 14px;
+    color: hsl(var(--foreground));
+}
+
+.no-features {
+    font-size: 14px;
+    color: hsl(var(--muted-foreground));
+    text-align: center;
+    padding: 24px;
+}
+
+// Add Feature Button
+.add-feature-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    background: transparent;
+    border: 2px dashed hsl(var(--border));
+    border-radius: var(--radius);
+    color: hsl(var(--muted-foreground));
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.add-feature-btn:hover {
+    border-color: hsl(var(--primary));
+    color: hsl(var(--primary));
+    background: hsl(var(--primary) / 0.05);
+}
+
+.add-feature-btn span {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+@media (max-width: 640px) {
+    .add-feature-btn {
+        flex-direction: column;
+        gap: 6px;
+        padding: 16px 12px;
+    }
+
+    .add-feature-btn span {
+        font-size: 12px;
+    }
+}
+
+// Offcanvas Panel (component-specific)
+.offcanvas-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
+}
+
+.offcanvas-overlay.closing {
+    animation: fadeOut 0.2s ease forwards;
+}
+
+.offcanvas-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 400px;
+    max-width: 100%;
+    background: hsl(var(--card));
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    animation: slideIn 0.2s ease;
+}
+
+.offcanvas-panel.closing {
+    animation: slideOut 0.2s ease forwards;
+}
+
+.offcanvas-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid hsl(var(--border));
+}
+
+.offcanvas-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: hsl(var(--card-foreground));
+    margin: 0;
+}
+
+.offcanvas-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius);
+    color: hsl(var(--muted-foreground));
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.offcanvas-close:hover {
+    background: hsl(var(--accent));
+    color: hsl(var(--foreground));
+}
+
+.offcanvas-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.offcanvas-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 20px;
+    border-top: 1px solid hsl(var(--border));
+}

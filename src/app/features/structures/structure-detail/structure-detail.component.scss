@@ -1,0 +1,151 @@
+// Structure Detail Component Styles
+// Map container from global .map-container in styles.scss
+
+// Layout (component-specific)
+.detail-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.info-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+@media (max-width: 768px) {
+    .info-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+// Info Display (component-specific)
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.info-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.info-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: hsl(var(--muted-foreground));
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.info-value {
+    font-size: 14px;
+    color: hsl(var(--foreground));
+}
+
+// Map Section
+.map-section {
+    grid-column: 1 / -1;
+}
+
+// Spaces List (component-specific)
+.spaces-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.space-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: hsl(var(--background));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    transition: border-color 0.15s ease;
+}
+
+.space-item:hover {
+    border-color: hsl(var(--ring));
+}
+
+.space-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius);
+    background: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.space-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.space-name {
+    display: block;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+}
+
+.space-type {
+    font-size: 13px;
+    color: hsl(var(--muted-foreground));
+}
+
+.space-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 13px;
+    color: hsl(var(--muted-foreground));
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.space-features {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.feature-tag {
+    padding: 4px 8px;
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.space-actions {
+    display: flex;
+    gap: 4px;
+}
+
+@media (max-width: 768px) {
+    .space-item {
+        flex-wrap: wrap;
+    }
+
+    .space-meta,
+    .space-features {
+        width: 100%;
+        margin-left: 56px;
+    }
+}

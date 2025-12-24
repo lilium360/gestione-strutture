@@ -1,0 +1,52 @@
+// Confirm Dialog Component Styles
+// Uses global animations @keyframes fadeIn and @keyframes slideUp from styles.scss
+
+.dialog-backdrop {
+    position: fixed;
+    inset: 0;
+    background: hsl(0 0% 0% / 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.15s ease;
+}
+
+.dialog {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    max-width: 420px;
+    width: 90%;
+    animation: slideUp 0.15s ease;
+}
+
+.dialog-header {
+    padding: 20px 24px 0;
+}
+
+.dialog-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: hsl(var(--card-foreground));
+    margin: 0;
+}
+
+.dialog-body {
+    padding: 12px 24px 20px;
+}
+
+.dialog-message {
+    color: hsl(var(--muted-foreground));
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.dialog-footer {
+    padding: 0 24px 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
