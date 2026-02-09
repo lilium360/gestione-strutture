@@ -25,8 +25,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
       },
       initOptions: {
         onLoad: 'check-sso',
+        checkLoginIframe: false,
         silentCheckSsoRedirectUri:
-          window.location.origin + window.location.pathname + (window.location.pathname.endsWith('/') ? '' : '/') + 'assets/silent-check-sso.html'
+          window.location.origin + '/gestione-strutture/assets/silent-check-sso.html'
       },
       // This helps with the duplicated fragment issue mentioned by the user
       enableBearerInterceptor: true,
