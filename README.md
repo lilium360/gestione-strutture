@@ -1,4 +1,4 @@
-# Gestione Strutture - Structure & Space Management Platform (v1.1.0)
+# Gestione Strutture - Structure & Space Management Platform (v1.2.0)
 
 <div align="center">
 
