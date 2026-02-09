@@ -5,6 +5,7 @@ import {
     RouterStateSnapshot
 } from '@angular/router';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
+import { PlatformLocation } from '@angular/common';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,8 @@ import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 export class AuthGuard extends KeycloakAuthGuard {
     constructor(
         protected override readonly router: Router,
-        protected readonly keycloak: KeycloakService
+        protected readonly keycloak: KeycloakService,
+        private readonly platformLocation: PlatformLocation
     ) {
         super(router, keycloak);
     }
@@ -22,8 +24,12 @@ export class AuthGuard extends KeycloakAuthGuard {
         state: RouterStateSnapshot
     ) {
         if (!this.authenticated) {
+            const baseHref = this.platformLocation.getBaseHrefFromDOM();
+            const safeBase = baseHref.endsWith('/') ? baseHref.slice(0, -1) : baseHref;
+            const url = window.location.origin + safeBase + state.url;
+
             await this.keycloak.login({
-                redirectUri: window.location.origin + state.url
+                redirectUri: url
             });
         }
 
