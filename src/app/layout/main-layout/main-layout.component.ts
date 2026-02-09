@@ -1,5 +1,5 @@
 import { Component, signal, computed, ChangeDetectionStrategy, OnInit, inject, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser, DOCUMENT } from '@angular/common';
+import { CommonModule, isPlatformBrowser, DOCUMENT, Location } from '@angular/common';
 import { RouterModule, RouterLink, RouterLinkActive } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 import { KeycloakService } from 'keycloak-angular';
@@ -29,6 +29,7 @@ interface NavItem {
 export class MainLayoutComponent implements OnInit {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly document = inject(DOCUMENT);
+  private readonly location = inject(Location);
   private readonly keycloak = inject(KeycloakService);
 
   isCollapsed = signal(false);
@@ -111,7 +112,7 @@ export class MainLayoutComponent implements OnInit {
 
   handleLogoutConfirm(): void {
     this.isLogoutDialogOpen.set(false);
-    this.keycloak.logout(window.location.origin);
+    this.keycloak.logout(window.location.origin + this.location.prepareExternalUrl(''));
   }
 
   handleLogoutCancel(): void {
