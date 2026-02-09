@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 import { FeaturesFacade } from '../../../core/services/features.facade';
 import { Feature, FeatureCategory, FEATURE_CATEGORY_LABELS } from '../../../core/models';
+import { AuthService } from '../../../core/services/auth.service';
 import {
     PageHeaderComponent,
     SearchInputComponent,
@@ -34,6 +35,7 @@ export class FeaturesListComponent implements OnInit {
     readonly facade = inject(FeaturesFacade);
     readonly categoryLabels = FEATURE_CATEGORY_LABELS;
     readonly categories: FeatureCategory[] = ['connectivity', 'equipment', 'accessibility', 'comfort'];
+    protected readonly auth = inject(AuthService);
 
     searchTerm = '';
     selectedCategory: FeatureCategory | null = null;

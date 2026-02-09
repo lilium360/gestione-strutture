@@ -1,9 +1,11 @@
 <div class="page-container">
     <app-page-header title="Features" subtitle="Manage amenities and equipment">
+        @if (auth.isAdmin()) {
         <a routerLink="new" class="btn btn-primary">
             <lucide-icon name="plus" [size]="16"></lucide-icon>
             Add Feature
         </a>
+        }
     </app-page-header>
 
     <div class="toolbar">
@@ -30,7 +32,9 @@
     } @else if (facade.isEmpty()) {
     <div class="empty-card">
         <app-empty-state title="No features yet" description="Get started by adding your first feature">
+            @if (auth.isAdmin()) {
             <a routerLink="new" class="btn btn-primary">Add Your First Feature</a>
+            }
         </app-empty-state>
     </div>
     } @else {
@@ -41,6 +45,7 @@
                 <div class="card-icon icon-accent">
                     <lucide-icon [name]="feature.icon" [size]="24"></lucide-icon>
                 </div>
+                @if (auth.isAdmin()) {
                 <div class="card-actions">
                     <a [routerLink]="[feature.id, 'edit']" class="icon-btn" title="Edit">
                         <lucide-icon name="pencil" [size]="16"></lucide-icon>
@@ -49,6 +54,7 @@
                         <lucide-icon name="trash-2" [size]="16"></lucide-icon>
                     </button>
                 </div>
+                }
             </div>
             <div class="card-content">
                 <h3 class="card-title">{{ feature.name }}</h3>

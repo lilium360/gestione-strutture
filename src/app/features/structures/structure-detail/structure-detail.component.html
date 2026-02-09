@@ -10,10 +10,12 @@
             <lucide-icon name="arrow-left" [size]="16"></lucide-icon>
             Back
         </a>
+        @if (auth.isAdmin()) {
         <a [routerLink]="['edit']" class="btn btn-primary">
             <lucide-icon name="pencil" [size]="16"></lucide-icon>
             Edit
         </a>
+        }
     </app-page-header>
 
     <div class="detail-grid">
@@ -78,10 +80,12 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Spaces</h3>
+                @if (auth.isAdmin()) {
                 <a [routerLink]="['/structures', id, 'spaces', 'new']" class="btn btn-sm btn-primary">
                     <lucide-icon name="plus" [size]="14"></lucide-icon>
                     Add Space
                 </a>
+                }
             </div>
 
             @if (spacesFacade.loading()) {
@@ -116,6 +120,7 @@
                         <span class="feature-tag">{{ feature.name }}</span>
                         }
                     </div>
+                    @if (auth.isAdmin()) {
                     <div class="space-actions">
                         <button class="icon-btn" (click)="editSpace(space)" title="Edit">
                             <lucide-icon name="pencil" [size]="16"></lucide-icon>
@@ -124,6 +129,7 @@
                             <lucide-icon name="trash-2" [size]="16"></lucide-icon>
                         </button>
                     </div>
+                    }
                 </div>
                 }
             </div>

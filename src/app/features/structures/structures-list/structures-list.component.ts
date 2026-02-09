@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 import { StructuresFacade } from '../../../core/services/structures.facade';
 import { Structure } from '../../../core/models';
+import { AuthService } from '../../../core/services/auth.service';
 import {
   PageHeaderComponent,
   SearchInputComponent,
@@ -14,24 +15,25 @@ import {
 } from '../../../shared/components';
 
 @Component({
-    selector: 'app-structures-list',
-    imports: [
-        CommonModule,
-        RouterLink,
-        LucideAngularModule,
-        PageHeaderComponent,
-        SearchInputComponent,
-        LoadingStateComponent,
-        EmptyStateComponent,
-        ErrorStateComponent,
-        ConfirmDialogComponent
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: './structures-list.component.html',
-    styleUrl: './structures-list.component.scss'
+  selector: 'app-structures-list',
+  imports: [
+    CommonModule,
+    RouterLink,
+    LucideAngularModule,
+    PageHeaderComponent,
+    SearchInputComponent,
+    LoadingStateComponent,
+    EmptyStateComponent,
+    ErrorStateComponent,
+    ConfirmDialogComponent
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './structures-list.component.html',
+  styleUrl: './structures-list.component.scss'
 })
 export class StructuresListComponent implements OnInit {
   readonly facade = inject(StructuresFacade);
+  protected readonly auth = inject(AuthService);
 
   searchTerm = '';
   showDeleteDialog = false;

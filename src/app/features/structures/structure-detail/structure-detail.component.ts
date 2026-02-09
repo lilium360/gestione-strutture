@@ -14,22 +14,23 @@ import {
   ConfirmDialogComponent
 } from '../../../shared/components';
 import * as L from 'leaflet';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
-    selector: 'app-structure-detail',
-    imports: [
-        CommonModule,
-        RouterLink,
-        LucideAngularModule,
-        PageHeaderComponent,
-        LoadingStateComponent,
-        EmptyStateComponent,
-        ErrorStateComponent,
-        ConfirmDialogComponent
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: './structure-detail.component.html',
-    styleUrl: './structure-detail.component.scss'
+  selector: 'app-structure-detail',
+  imports: [
+    CommonModule,
+    RouterLink,
+    LucideAngularModule,
+    PageHeaderComponent,
+    LoadingStateComponent,
+    EmptyStateComponent,
+    ErrorStateComponent,
+    ConfirmDialogComponent
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './structure-detail.component.html',
+  styleUrl: './structure-detail.component.scss'
 })
 export class StructureDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() id!: string;
@@ -40,6 +41,7 @@ export class StructureDetailComponent implements OnInit, AfterViewInit, OnDestro
   readonly featuresFacade = inject(FeaturesFacade);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  protected readonly auth = inject(AuthService);
 
   structure = signal<Structure | null>(null);
   spaces = signal<Space[]>([]);

@@ -1,9 +1,11 @@
 <div class="structures-page">
     <app-page-header title="Structures" subtitle="Manage your buildings and locations">
+        @if (auth.isAdmin()) {
         <a routerLink="new" class="btn btn-primary">
             <lucide-icon name="plus" [size]="16"></lucide-icon>
             Add Structure
         </a>
+        }
     </app-page-header>
 
     <div class="toolbar">
@@ -19,7 +21,9 @@
     } @else if (facade.isEmpty()) {
     <div class="empty-card">
         <app-empty-state title="No structures yet" description="Get started by adding your first structure">
+            @if (auth.isAdmin()) {
             <a routerLink="new" class="btn btn-primary">Add Your First Structure</a>
+            }
         </app-empty-state>
     </div>
     } @else {
@@ -30,6 +34,7 @@
                 <div class="card-icon icon-primary">
                     <lucide-icon name="building-2" [size]="24"></lucide-icon>
                 </div>
+                @if (auth.isAdmin()) {
                 <div class="card-actions">
                     <a [routerLink]="[structure.id, 'edit']" class="icon-btn" title="Edit">
                         <lucide-icon name="pencil" [size]="16"></lucide-icon>
@@ -38,6 +43,7 @@
                         <lucide-icon name="trash-2" [size]="16"></lucide-icon>
                     </button>
                 </div>
+                }
             </div>
             <a [routerLink]="[structure.id]" class="card-content">
                 <h3 class="card-title">{{ structure.name }}</h3>
