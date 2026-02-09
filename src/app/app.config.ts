@@ -1,7 +1,7 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection, APP_INITIALIZER, importProvidersFrom } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
-import { APP_INITIALIZER, importProvidersFrom } from '@angular/core';
+import { Location } from '@angular/common';
 import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
 import { environment } from '../environments/environment';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -15,7 +15,7 @@ import {
 import { routes } from './app.routes';
 import { InMemoryDataService } from './core/services/in-memory-data.service';
 
-function initializeKeycloak(keycloak: KeycloakService) {
+function initializeKeycloak(keycloak: KeycloakService, location: Location) {
   return () =>
     keycloak.init({
       config: {
@@ -27,7 +27,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
         onLoad: 'check-sso',
         checkLoginIframe: false,
         silentCheckSsoRedirectUri:
-          window.location.origin + '/gestione-strutture/assets/silent-check-sso.html'
+          window.location.origin + location.prepareExternalUrl('assets/silent-check-sso.html')
       },
       // This helps with the duplicated fragment issue mentioned by the user
       enableBearerInterceptor: true,
@@ -44,7 +44,7 @@ export const appConfig: ApplicationConfig = {
       provide: APP_INITIALIZER,
       useFactory: initializeKeycloak,
       multi: true,
-      deps: [KeycloakService]
+      deps: [KeycloakService, Location]
     },
     importProvidersFrom(
       KeycloakAngularModule,
