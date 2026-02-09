@@ -82,7 +82,7 @@
             @if (!isCollapsed()) {
             <div class="app-version">
                 <span class="version-label">Gestione Strutture</span>
-                <span class="version-number">v1.0.0</span>
+                <span class="version-number">v1.1.0</span>
             </div>
             }
         </div>
@@ -109,8 +109,24 @@
                     }
                 </button>
 
-                <div class="user-avatar">
-                    <span>U</span>
+                <div class="user-menu-container">
+                    <button class="user-avatar" [attr.aria-label]="'User menu for ' + userName()"
+                        (click)="userMenu.classList.toggle('visible')">
+                        <span>{{ userInitials() }}</span>
+                    </button>
+
+                    <div #userMenu class="user-menu-dropdown">
+                        <div class="user-menu-header">
+                            <span class="greeting">Howdy,</span>
+                            <span class="user-full-name">{{ userName() }}</span>
+                        </div>
+                        <div class="user-menu-divider"></div>
+                        <button class="user-menu-item logout-btn"
+                            (click)="onLogoutClick(); userMenu.classList.remove('visible')">
+                            <lucide-icon name="log-out" [size]="16"></lucide-icon>
+                            <span>Logout</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </header>
@@ -119,4 +135,9 @@
             <router-outlet />
         </main>
     </div>
+
+    <app-confirm-dialog [isOpen]="isLogoutDialogOpen()" title="Confirm Logout"
+        message="Are you sure you want to log out of the platform?" confirmText="Logout" cancelText="Cancel"
+        variant="destructive" (confirm)="handleLogoutConfirm()" (cancel)="handleLogoutCancel()">
+    </app-confirm-dialog>
 </div>

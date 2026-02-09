@@ -2,6 +2,9 @@ import { Component, signal, computed, ChangeDetectionStrategy, OnInit, inject, P
 import { CommonModule, isPlatformBrowser, DOCUMENT } from '@angular/common';
 import { RouterModule, RouterLink, RouterLinkActive } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
+import { KeycloakService } from 'keycloak-angular';
+import { KeycloakProfile } from 'keycloak-js';
+import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 
 interface NavItem {
   label: string;
@@ -10,32 +13,65 @@ interface NavItem {
 }
 
 @Component({
-    selector: 'app-main-layout',
-    imports: [CommonModule, RouterModule, RouterLink, RouterLinkActive, LucideAngularModule],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: './main-layout.component.html',
-    styleUrl: './main-layout.component.scss'
+  selector: 'app-main-layout',
+  imports: [
+    CommonModule,
+    RouterModule,
+    RouterLink,
+    RouterLinkActive,
+    LucideAngularModule,
+    ConfirmDialogComponent
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './main-layout.component.html',
+  styleUrl: './main-layout.component.scss'
 })
 export class MainLayoutComponent implements OnInit {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly document = inject(DOCUMENT);
+  private readonly keycloak = inject(KeycloakService);
 
   isCollapsed = signal(false);
   isMobileOpen = signal(false);
   isDarkMode = signal(true);
+  isLogoutDialogOpen = signal(false);
+
+  userProfile = signal<KeycloakProfile | null>(null);
+  userInitials = computed(() => {
+    const profile = this.userProfile();
+    if (!profile) return 'U';
+
+    const first = profile.firstName?.charAt(0) || '';
+    const last = profile.lastName?.charAt(0) || '';
+    return (first + last).toUpperCase() || profile.username?.charAt(0).toUpperCase() || 'U';
+  });
+
+  userName = computed(() => {
+    const profile = this.userProfile();
+    return profile ? `${profile.firstName} ${profile.lastName}` : 'User';
+  });
 
   navItems: NavItem[] = [
     { label: 'Structures', path: '/structures', icon: 'building' },
     { label: 'Features', path: '/features', icon: 'layers' }
   ];
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     if (isPlatformBrowser(this.platformId)) {
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme) {
         this.isDarkMode.set(savedTheme === 'dark');
       }
       this.applyTheme();
+
+      try {
+        if (await this.keycloak.isLoggedIn()) {
+          const profile = await this.keycloak.loadUserProfile();
+          this.userProfile.set(profile);
+        }
+      } catch (error) {
+        console.error('Failed to load user profile', error);
+      }
     }
   }
 
@@ -67,5 +103,18 @@ export class MainLayoutComponent implements OnInit {
         this.document.documentElement.classList.remove('dark');
       }
     }
+  }
+
+  onLogoutClick(): void {
+    this.isLogoutDialogOpen.set(true);
+  }
+
+  handleLogoutConfirm(): void {
+    this.isLogoutDialogOpen.set(false);
+    this.keycloak.logout(window.location.origin);
+  }
+
+  handleLogoutCancel(): void {
+    this.isLogoutDialogOpen.set(false);
   }
 }

@@ -1,4 +1,4 @@
-# Gestione Strutture - Structure & Space Management Platform
+# Gestione Strutture - Structure & Space Management Platform (v1.1.0)
 
 <div align="center">
 
@@ -55,6 +55,7 @@ A modern Single Page Application for managing a catalog of physical structures, 
 - ✅ **Empty States** - Informative placeholders when no data exists
 - ✅ **Error States** - User-friendly error messages with retry options
 - ✅ **Confirmation Dialogs** - Safety prompts for destructive operations
+- ✅ **Keycloak Integration** - Professional-grade AuthN/AuthZ with SSO support
 - ✅ **Toast-like Feedback** - Immediate visual confirmation of actions
 - ✅ **Smooth Animations** - CSS transitions and keyframe animations
 
@@ -426,6 +427,15 @@ Lazy-loaded feature areas organized by domain.
 |-----------|-------------|
 | `FeaturesListComponent` | Grid view with category filters |
 | `FeatureFormComponent` | Create/edit feature form |
+
+### Authentication & Security
+
+The platform integrates **Keycloak** for robust identity management.
+
+- **Single Sign-On (SSO)**: Seamless authentication across integrated applications.
+- **Secure Routes**: Automatic redirection to the identity provider for protected resources.
+- **Bearer Tokens**: Automatic inclusion of JWT tokens in API requests via `enableBearerInterceptor`.
+- **Silent SSO Check**: Optimized session verification using hidden iFrames.
 
 ---
 

@@ -197,6 +197,10 @@
     position: relative;
 }
 
+.user-menu-container {
+    position: relative;
+}
+
 .user-avatar {
     width: 32px;
     height: 32px;
@@ -208,6 +212,98 @@
     justify-content: center;
     font-size: 13px;
     font-weight: 600;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.user-avatar:hover {
+    box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2);
+}
+
+.user-menu-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 220px;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    z-index: 100;
+    padding: 8px;
+    display: none;
+    flex-direction: column;
+    animation: slideInUp 0.2s ease;
+}
+
+.user-menu-dropdown.visible {
+    display: flex;
+}
+
+.user-menu-header {
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.greeting {
+    font-size: 12px;
+    color: hsl(var(--foreground) / 0.6);
+}
+
+.user-full-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+}
+
+.user-menu-divider {
+    height: 1px;
+    background: hsl(var(--border));
+    margin: 8px 4px;
+}
+
+.user-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: hsl(var(--foreground));
+    font-size: 14px;
+    border-radius: calc(var(--radius) - 2px);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.user-menu-item:hover {
+    background: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+}
+
+.logout-btn {
+    color: hsl(var(--destructive));
+}
+
+.logout-btn:hover {
+    background: hsl(var(--destructive) / 0.1);
+    color: hsl(var(--destructive));
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .main-content {
