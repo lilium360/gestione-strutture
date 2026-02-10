@@ -5,6 +5,7 @@ import { LucideAngularModule } from 'lucide-angular';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
+import packageInfo from '../../../../package.json';
 
 interface NavItem {
   label: string;
@@ -36,6 +37,7 @@ export class MainLayoutComponent implements OnInit {
   isMobileOpen = signal(false);
   isDarkMode = signal(true);
   isLogoutDialogOpen = signal(false);
+  readonly appVersion = packageInfo.version;
 
   userProfile = signal<KeycloakProfile | null>(null);
   userInitials = computed(() => {
