@@ -1,4 +1,4 @@
-# Gestione Strutture - Structure & Space Management Platform (v1.2.0)
+# Gestione Strutture - Structure & Space Management Platform (v1.3.0)
 
 <div align="center">
 
@@ -47,6 +47,9 @@ A modern Single Page Application for managing a catalog of physical structures, 
 | **Reactive Forms** | Angular Reactive Forms with comprehensive validation |
 | **Real-time Search** | Client-side filtering with instant results |
 | **Dark/Light Theme** | Persistent theme switching with system preference detection |
+| **Multi-floor Planimetry** | Layer-based blueprint management with opacity control and corner distortion |
+| **Real-time Map HUD** | Live coordinate extraction for precise blueprint alignment |
+
 
 ### UX/UI Features
 
@@ -146,6 +149,7 @@ A modern Single Page Application for managing a catalog of physical structures, 
 |------------|---------|---------|
 | **Leaflet** | 1.9.4 | Interactive map rendering |
 | **OpenStreetMap** | - | Map tiles and geocoding services |
+| **Leaflet DistortableImage** | | Advanced planimetry overlay with 4-corner perspective distortion |
 
 ### Development & Build
 
@@ -784,6 +788,25 @@ export const routes: Routes = [
 | **Smart/Dumb Components** | Separate container logic from presentation |
 | **Facade Pattern** | Hide complexity behind simple interfaces |
 | **Barrel Exports** | Simplify import statements |
+
+---
+
+## 🗺️ Planimetry & Map System
+
+### Distortable Image Integration
+The platform uses `leaflet-distortableimage` to overlay floor blueprints directly onto the map. This allows for precise architectural alignment regardless of the original image's aspect ratio or rotation.
+
+- **Coordinate System**: Each planimetry is defined by 4 `L.LatLng` corners.
+- **Perspective Scaling**: Scaling and rotation are handled via perspective distortion between these 4 points.
+- **Coordinate HUB (HUD)**: In development/edit mode, a live JSON HUD displays the exact current corner coordinates.
+- **Copy to Clipboard**: One-click export of current alignment values for persistence in `InMemoryDataService`.
+
+### Stability & Cleanup
+To prevent memory leaks and `getPane` errors common in Leaflet integrations:
+- **Atomic Removal**: Layers are explicitly removed from the map before the map instance is destroyed.
+- **Interval Management**: All polling intervals (data services, map retries) are tracked and cleared in `ngOnDestroy`.
+- **Zombie Safeguards**: Async loading processes check component life status (`isDestroyed` flag) before updating state.
+
 
 ---
 

@@ -1,7 +1,7 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
-import * as L from 'leaflet';
+declare const L: any;
 
 // Fix Leaflet default marker icon path issue - use CDN icons
 delete (L.Icon.Default.prototype as any)._getIconUrl;

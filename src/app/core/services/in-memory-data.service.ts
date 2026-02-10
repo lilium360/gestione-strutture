@@ -20,8 +20,53 @@ export class InMemoryDataService implements InMemoryDbService {
             { id: 'f8', name: 'Natural Light', icon: 'sun', category: 'comfort', description: 'Large windows with natural lighting' }
         ];
 
-        // Real Italian landmark addresses with accurate coordinates and business details
         const structures: Structure[] = [
+            {
+                id: 's10',
+                name: 'Parco Commerciale I Portali',
+                address: 'Viale Cristoforo Colombo, 6',
+                city: 'San Giovanni la Punta',
+                description: 'Uno dei principali parchi commerciali della Sicilia, con oltre 90 negozi, cinema multisala e un\'ampia area food.',
+                openingHours: 'Mon-Sat: 08:30-21:00, Sun: 09:00-20:00',
+                phone: '095 741 55 34',
+                email: 'info@iportali.net',
+                coordinates: { lat: 37.58402, lng: 15.10462 },
+                imageUrl: '/assets/planimetries/iportali_piano_0.jpg',
+                floors: [
+                    {
+                        id: 'f10-0',
+                        level: '0',
+                        name: 'Piano Terra',
+                        url: '/assets/planimetries/iportali_piano_0.jpg',
+                        corners: [
+                            { lat: 37.585464032639926, lng: 15.10537109336983 },
+                            { lat: 37.58169185359589, lng: 15.105649391678947 },
+                            { lat: 37.58557430052818, lng: 15.103921623009892 },
+                            { lat: 37.58150806410649, lng: 15.104170931911577 }
+                        ],
+                        opacity: 0.9
+                    },
+                    {
+                        id: 'f10-1',
+                        level: '1',
+                        name: 'Piano Primo',
+                        url: '/assets/planimetries/iportali_piano_1.jpg',
+                        corners: [
+                            { lat: 37.585464032639926, lng: 15.10537109336983 },
+                            { lat: 37.58169185359589, lng: 15.105649391678947 },
+                            { lat: 37.58557430052818, lng: 15.103921623009892 },
+                            { lat: 37.58150806410649, lng: 15.104170931911577 }
+                        ],
+                        opacity: 0.9
+                    }
+                ],
+
+
+                createdAt: new Date('2025-02-10'),
+                updatedAt: new Date('2025-02-10')
+            },
+
+
             {
                 id: 's1',
                 name: 'Palazzo Lombardia',
@@ -37,6 +82,7 @@ export class InMemoryDataService implements InMemoryDbService {
                 updatedAt: new Date('2024-06-20')
             },
             {
+
                 id: 's2',
                 name: 'Grattacielo Intesa Sanpaolo',
                 address: 'Corso Inghilterra 3',

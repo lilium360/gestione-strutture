@@ -9,8 +9,10 @@ import {
   LucideAngularModule, Search, X, Plus, Pencil, Trash2, MapPin,
   Building2, Layers, AlertTriangle, Inbox, Folder, Sun, Moon, Monitor,
   Wifi, Presentation, Accessibility, Thermometer, Video, Square, Cable,
-  Star, Users, ArrowLeft, Home, PanelLeft
+  Star, Users, ArrowLeft, Home, PanelLeft, LogOut, ImagePlus, Copy, Check, RefreshCw
 } from 'lucide-angular';
+
+
 
 import { routes } from './app.routes';
 import { InMemoryDataService } from './core/services/in-memory-data.service';
@@ -57,8 +59,11 @@ export const appConfig: ApplicationConfig = {
         Search, X, Plus, Pencil, Trash2, MapPin, Building2, Layers,
         AlertTriangle, Inbox, Folder, Sun, Moon, Monitor, Wifi,
         Presentation, Accessibility, Thermometer, Video, Square,
-        Cable, Star, Users, ArrowLeft, Home, PanelLeft
+        Cable, Star, Users, ArrowLeft, Home, PanelLeft, LogOut, ImagePlus,
+        Copy, Check, RefreshCw
       })
+
+
     )
   ]
 };

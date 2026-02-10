@@ -74,7 +74,33 @@
 
         <div class="card map-section">
             <h3 class="card-title">Location</h3>
-            <div #mapContainer class="map-container"></div>
+            <div class="relative group">
+                <div #mapContainer class="map-container"></div>
+
+                <!-- Floor Selector Overlay -->
+                @if (structure()?.floors?.length || structure()?.planimetryUrl) {
+                <div class="floor-selector-overlay">
+                    <div class="selector-header">
+                        <lucide-icon name="layers" [size]="14"></lucide-icon>
+                        <span>Floors</span>
+                    </div>
+                    <div class="selector-buttons">
+                        @if (structure()?.planimetryUrl && (!structure()?.floors?.length)) {
+                        <button class="floor-btn" [class.active]="activeFloorId() === 'legacy'"
+                            (click)="selectFloor('legacy')">
+                            PT
+                        </button>
+                        }
+                        @for (floor of structure()?.floors; track floor.id) {
+                        <button class="floor-btn" [class.active]="activeFloorId() === floor.id"
+                            (click)="selectFloor(floor.id)">
+                            {{ floor.level }}
+                        </button>
+                        }
+                    </div>
+                </div>
+                }
+            </div>
         </div>
 
         <div class="card">

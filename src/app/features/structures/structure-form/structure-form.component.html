@@ -106,7 +106,90 @@
             <div class="map-card">
                 <h3 class="form-section-title">Location Preview</h3>
                 <div #mapContainer class="map-container"></div>
-                <p class="map-hint">Select an address to see the location on the map</p>
+
+                <div class="map-toolbar">
+                    <button type="button" class="btn btn-outline btn-sm transition-all shadow-sm"
+                        (click)="planimetryInput.click()">
+                        <lucide-icon [name]="activeFloor()?.url ? 'refresh-cw' : 'image-plus'"
+                            [size]="16"></lucide-icon>
+                        {{ activeFloor()?.url ? 'Change ' + activeFloor()?.name : 'Upload for ' + (activeFloor()?.name
+                        || 'Floor') }}
+                    </button>
+                    <input #planimetryInput type="file" (change)="onPlanimetryUpload($event)" accept="image/*"
+                        class="hidden">
+
+                    @if (activeFloor()?.url) {
+                    <div class="planimetry-controls-card">
+                        <div class="control-header">
+                            <h4>{{ activeFloor()?.name }} Overlay</h4>
+                            <button type="button" class="remove-btn" (click)="removePlanimetry()"
+                                title="Remove planimetry">
+                                <lucide-icon name="x" [size]="18"></lucide-icon>
+                            </button>
+                        </div>
+
+                        <div class="opacity-control">
+                            <div class="label-row">
+                                <label>Opacity</label>
+                                <span class="value-badge">{{ (planimetryOpacity() * 100).toFixed(0) }}%</span>
+                            </div>
+                            <input type="range" min="0" max="1" step="0.05" [value]="planimetryOpacity()"
+                                (input)="onOpacityChange($event)" class="custom-range">
+                        </div>
+
+                        <p class="hint-text text-center">
+                            Tip: Drag the corners on the map to accurately fit the {{ activeFloor()?.name }} layout.
+                        </p>
+
+                        <div class="debug-info mt-4">
+                            <div class="debug-header">
+                                <span>Corner Coordinates (JSON)</span>
+                                <button type="button" class="copy-btn" (click)="copyCornersJson()"
+                                    [title]="copySuccess() ? 'Copied!' : 'Copy to clipboard'">
+                                    <lucide-icon [name]="copySuccess() ? 'check' : 'copy'" [size]="14"></lucide-icon>
+                                </button>
+                            </div>
+                            <pre class="debug-coords"><code>{{ planimetryCorners() | json }}</code></pre>
+                        </div>
+                    </div>
+                    }
+
+
+                    <div class="floor-management">
+                        <div class="section-header">
+                            <h4>Structure Floors</h4>
+                            <button type="button" class="btn btn-sm btn-outline px-2 h-7" (click)="addFloor()"
+                                title="Add a new floor">
+                                <lucide-icon name="plus" [size]="14"></lucide-icon>
+                                Add Floor
+                            </button>
+                        </div>
+
+                        <div class="floor-list">
+                            @for (floor of floors(); track floor.id) {
+                            <div class="floor-item" [class.active]="activeFloorId() === floor.id"
+                                (click)="selectFloor(floor.id)">
+                                <div class="floor-icon">
+                                    <lucide-icon name="layers" [size]="16"></lucide-icon>
+                                </div>
+                                <input type="text" class="floor-name-input" [value]="floor.name"
+                                    (change)="updateFloorName(floor.id, nameInput.value)" #nameInput
+                                    (click)="$event.stopPropagation()">
+                                <button type="button" class="remove-floor-btn" (click)="removeFloor(floor.id, $event)"
+                                    title="Remove this floor">
+                                    <lucide-icon name="trash-2" [size]="14"></lucide-icon>
+                                </button>
+                            </div>
+                            }
+                            @if (floors().length === 0) {
+                            <p class="text-xs text-slate-400 italic py-2 text-center">No floors added yet.</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <p class="map-hint mt-2">Select an address to see the location on the map</p>
+
             </div>
         </div>
     </form>
