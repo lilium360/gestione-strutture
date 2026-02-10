@@ -31,13 +31,13 @@ export class InMemoryDataService implements InMemoryDbService {
                 phone: '095 741 55 34',
                 email: 'info@iportali.net',
                 coordinates: { lat: 37.58402, lng: 15.10462 },
-                imageUrl: '/assets/planimetries/iportali_piano_0.jpg',
+                imageUrl: 'assets/planimetries/iportali_piano_0.jpg',
                 floors: [
                     {
                         id: 'f10-0',
                         level: '0',
                         name: 'Piano Terra',
-                        url: '/assets/planimetries/iportali_piano_0.jpg',
+                        url: 'assets/planimetries/iportali_piano_0.jpg',
                         corners: [
                             { lat: 37.585464032639926, lng: 15.10537109336983 },
                             { lat: 37.58169185359589, lng: 15.105649391678947 },
@@ -50,7 +50,7 @@ export class InMemoryDataService implements InMemoryDbService {
                         id: 'f10-1',
                         level: '1',
                         name: 'Piano Primo',
-                        url: '/assets/planimetries/iportali_piano_1.jpg',
+                        url: 'assets/planimetries/iportali_piano_1.jpg',
                         corners: [
                             { lat: 37.585464032639926, lng: 15.10537109336983 },
                             { lat: 37.58169185359589, lng: 15.105649391678947 },
