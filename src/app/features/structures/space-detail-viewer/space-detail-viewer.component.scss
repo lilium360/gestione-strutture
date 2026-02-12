@@ -1,0 +1,97 @@
+// Space Detail Viewer (3D Viewer with Raycasting)
+// Read-only view embedded in structure detail
+
+:host {
+    display: block;
+    position: relative;
+}
+
+.viewer-container {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: hsl(220 20% 10%);
+    border: 1px solid hsl(var(--border));
+    cursor: grab;
+}
+
+.viewer-container:active {
+    cursor: grabbing;
+}
+
+.viewer-container canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+// ── Feature Tooltip ──────────────────────────────────────────────
+.feature-tooltip {
+    position: absolute;
+    pointer-events: none;
+    z-index: 10;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    max-width: 220px;
+    transform: translate(-50%, -110%);
+    animation: tooltipFadeIn 0.15s ease;
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -110%);
+    }
+}
+
+.tooltip-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tooltip-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+}
+
+.tooltip-desc {
+    margin: 6px 0 0;
+    font-size: 12px;
+    color: hsl(var(--muted-foreground));
+    line-height: 1.4;
+}
+
+// ── Controls Hint ────────────────────────────────────────────────
+.viewer-controls-hint {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    padding: 4px 12px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    border-radius: 99px;
+
+    span {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.7);
+        white-space: nowrap;
+    }
+}

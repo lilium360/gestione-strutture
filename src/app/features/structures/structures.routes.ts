@@ -17,13 +17,13 @@ export const STRUCTURES_ROUTES: Routes = [
         path: ':structureId/spaces/new',
         canActivate: [AuthGuard],
         data: { roles: ['admin'] },
-        loadComponent: () => import('./space-form/space-form.component').then(m => m.SpaceFormComponent)
+        loadComponent: () => import('./space-editor/space-editor.component').then(m => m.SpaceEditorComponent)
     },
     {
         path: ':structureId/spaces/:spaceId/edit',
         canActivate: [AuthGuard],
         data: { roles: ['admin'] },
-        loadComponent: () => import('./space-form/space-form.component').then(m => m.SpaceFormComponent)
+        loadComponent: () => import('./space-editor/space-editor.component').then(m => m.SpaceEditorComponent)
     },
     {
         path: ':id/edit',

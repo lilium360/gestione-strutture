@@ -1,7 +1,8 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, tap, of } from 'rxjs';
+import { Observable, catchError, tap, of, map } from 'rxjs';
 import { Space, CreateSpaceDto, UpdateSpaceDto } from '../models';
+import { SpacePersistenceService, Position3D, FeaturePositionsMap } from './space-persistence.service';
 
 export interface SpacesState {
     spaces: Space[];
@@ -22,15 +23,20 @@ const initialState: SpacesState = {
 })
 export class SpacesFacade {
     private readonly http = inject(HttpClient);
+    private readonly persistence = inject(SpacePersistenceService);
     private readonly apiUrl = 'api/spaces';
 
     private readonly _state = signal<SpacesState>(initialState);
+
+    // Reactive map of feature positions for the currently selected space
+    private readonly _featurePositions = signal<FeaturePositionsMap>({});
 
     readonly spaces = computed(() => this._state().spaces);
     readonly selectedSpace = computed(() => this._state().selectedSpace);
     readonly loading = computed(() => this._state().loading);
     readonly error = computed(() => this._state().error);
     readonly isEmpty = computed(() => !this._state().loading && this._state().spaces.length === 0);
+    readonly spaceFeaturePositions = computed(() => this._featurePositions());
 
     private currentStructureId = signal<string | null>(null);
     private searchTerm = signal('');
@@ -80,10 +86,18 @@ export class SpacesFacade {
         ).subscribe();
     }
 
+    /**
+     * Load a single space and merge its 3D feature positions from localStorage.
+     */
     loadSpace(id: string): void {
         this.updateState({ loading: true, error: null });
         this.http.get<Space>(`${this.apiUrl}/${id}`).pipe(
-            tap(space => this.updateState({ selectedSpace: space, loading: false })),
+            tap(space => {
+                // Merge 3D positions from localStorage
+                const positions = this.persistence.getFeaturePositions(space.id);
+                this._featurePositions.set(positions);
+                this.updateState({ selectedSpace: space, loading: false });
+            }),
             catchError(err => {
                 this.updateState({ error: 'Failed to load space', loading: false });
                 return of(null);
@@ -117,6 +131,7 @@ export class SpacesFacade {
         this.updateState({ loading: true, error: null });
         const update = { ...dto, id, updatedAt: new Date() };
         return this.http.put<any>(`${this.apiUrl}/${id}`, update).pipe(
+            map(() => update as Space),
             tap(() => {
                 const spaces = this._state().spaces.map(s =>
                     s.id === id ? { ...s, ...update } : s
@@ -141,6 +156,8 @@ export class SpacesFacade {
         return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
             tap(() => {
                 const spaces = this._state().spaces.filter(s => s.id !== id);
+                // Also clear persisted positions
+                this.persistence.clearSpacePositions(id);
                 this.updateState({
                     spaces,
                     selectedSpace: this._state().selectedSpace?.id === id ? null : this._state().selectedSpace,
@@ -153,6 +170,46 @@ export class SpacesFacade {
             })
         );
     }
+
+    // ── 3D Position Management ──────────────────────────────────────
+
+    /**
+     * Update a single feature's 3D position. Saves to localStorage and updates reactive state.
+     */
+    updateFeaturePosition(spaceId: string, featureId: string, position: Position3D): void {
+        this.persistence.saveFeaturePosition(spaceId, featureId, position);
+        this._featurePositions.update(current => ({
+            ...current,
+            [featureId]: { ...position }
+        }));
+    }
+
+    /**
+     * Get all feature positions for a space from localStorage.
+     */
+    getFeaturePositions(spaceId: string): FeaturePositionsMap {
+        return this.persistence.getFeaturePositions(spaceId);
+    }
+
+    /**
+     * Load feature positions into the reactive signal for a given space.
+     */
+    loadFeaturePositions(spaceId: string): void {
+        const positions = this.persistence.getFeaturePositions(spaceId);
+        this._featurePositions.set(positions);
+    }
+
+    // ── Model Persistence (IndexedDB) ────────────────────────────────
+
+    async saveSpaceModel(spaceId: string, file: File | Blob): Promise<void> {
+        return this.persistence.saveModel(spaceId, file);
+    }
+
+    async getSpaceModel(spaceId: string): Promise<Blob | null> {
+        return this.persistence.getModel(spaceId);
+    }
+
+    // ── State Helpers ───────────────────────────────────────────────
 
     selectSpace(space: Space | null): void {
         this.updateState({ selectedSpace: space });

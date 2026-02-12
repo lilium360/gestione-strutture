@@ -236,7 +236,69 @@ export class InMemoryDataService implements InMemoryDbService {
             // S9 - Museo Egizio
             { id: 'sp21', structureId: 's9', name: 'Sala Statuaria', type: 'common_area', capacity: 80, floor: '0', featureIds: ['f1', 'f3', 'f4'], createdAt: new Date('2024-09-05'), updatedAt: new Date('2024-12-01') },
             { id: 'sp22', structureId: 's9', name: 'Aula Didattica', type: 'meeting_room', capacity: 40, floor: '1', featureIds: ['f1', 'f2', 'f3', 'f5', 'f6'], createdAt: new Date('2024-09-05'), updatedAt: new Date('2024-12-01') },
-            { id: 'sp23', structureId: 's9', name: 'Caffetteria Museo', type: 'kitchen', capacity: 60, floor: '0', featureIds: ['f1', 'f3', 'f4'], createdAt: new Date('2024-09-05'), updatedAt: new Date('2024-12-01') }
+            { id: 'sp23', structureId: 's9', name: 'Caffetteria Museo', type: 'kitchen', capacity: 60, floor: '0', featureIds: ['f1', 'f3', 'f4'], createdAt: new Date('2024-09-05'), updatedAt: new Date('2024-12-01') },
+
+            // S10 - Parco Commerciale I Portali
+            {
+                id: 'sp24',
+                structureId: 's10',
+                name: 'Cinestar - Sala 1',
+                type: 'meeting_room',
+                capacity: 202,
+                floor: '0',
+                featureIds: ['f2', 'f5', 'f8'],
+                modelUrl: 'assets/3D/Cinema.glb',
+                cameraSettings: {
+                    position: { x: 2, y: 2, z: 5 },
+                    target: { x: 0, y: 0, z: 0 }
+                },
+                modelScale: { x: 0.1, y: 0.1, z: 0.1 },
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                id: 'sp25',
+                structureId: 's10',
+                name: 'Piazza Centrale',
+                type: 'common_area',
+                capacity: 150,
+                floor: '0',
+                featureIds: ['f1', 'f3', 'f8'],
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                id: 'sp26',
+                structureId: 's10',
+                name: 'Toilette - Zona Est',
+                type: 'bathroom',
+                floor: '0',
+                featureIds: ['f3'],
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                id: 'sp27',
+                structureId: 's10',
+                name: 'Area Food - Terrazza',
+                type: 'kitchen',
+                capacity: 80,
+                floor: '1',
+                featureIds: ['f1', 'f4', 'f8'],
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                id: 'sp28',
+                structureId: 's10',
+                name: 'Infopoint & Direzione',
+                type: 'office',
+                capacity: 4,
+                floor: '1',
+                featureIds: ['f1', 'f4', 'f7'],
+                createdAt: new Date(),
+                updatedAt: new Date()
+            }
         ];
 
         return { structures, spaces, features };

@@ -1,0 +1,23 @@
+<div class="viewer-container" #viewerContainer>
+    <canvas #viewerCanvas></canvas>
+
+    <!-- Feature Tooltip (positioned via CSS transform) -->
+    @if (tooltipVisible()) {
+    <div class="feature-tooltip" [style.left.px]="tooltipX()" [style.top.px]="tooltipY()">
+        <div class="tooltip-header">
+            <lucide-icon [name]="tooltipIcon()" [size]="16"></lucide-icon>
+            <span class="tooltip-name">{{ tooltipName() }}</span>
+        </div>
+        @if (tooltipDescription()) {
+        <p class="tooltip-desc">{{ tooltipDescription() }}</p>
+        }
+    </div>
+    }
+
+    <!-- Controls hint overlay -->
+    <div class="viewer-controls-hint">
+        <span><lucide-icon name="mouse" [size]="12"></lucide-icon> Orbit: Left-click drag</span>
+        <span><lucide-icon name="zoom-in" [size]="12"></lucide-icon> Zoom: Scroll</span>
+        <span><lucide-icon name="box" [size]="12"></lucide-icon> Click cube for info</span>
+    </div>
+</div>

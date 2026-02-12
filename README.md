@@ -1,4 +1,4 @@
-# Gestione Strutture - Structure & Space Management Platform (v1.3.0)
+# Gestione Strutture - Structure & Space Management Platform (v1.4.0)
 
 <div align="center">
 
@@ -7,6 +7,8 @@
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.1+-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
 ![RxJS](https://img.shields.io/badge/RxJS-7.8+-B7178C?style=for-the-badge&logo=reactivex&logoColor=white)
 ![Leaflet](https://img.shields.io/badge/Leaflet-1.9+-199900?style=for-the-badge&logo=leaflet&logoColor=white)
+![Three.js](https://img.shields.io/badge/Three.js-r182-000000?style=for-the-badge&logo=three.js&logoColor=white)
+![IndexedDB](https://img.shields.io/badge/IndexedDB-Persistence-blueviolet?style=for-the-badge&logo=icloud&logoColor=white)
 
 A modern Single Page Application for managing a catalog of physical structures, internal spaces, and reusable features/services. Built with Angular 19+ using the latest standalone component architecture, reactive patterns with Signals, and the Facade Pattern for clean state management.
 
@@ -49,6 +51,8 @@ A modern Single Page Application for managing a catalog of physical structures, 
 | **Dark/Light Theme** | Persistent theme switching with system preference detection |
 | **Multi-floor Planimetry** | Layer-based blueprint management with opacity control and corner distortion |
 | **Real-time Map HUD** | Live coordinate extraction for precise blueprint alignment |
+| **3D Digital Twins** | High-performance 3D visualization of spaces via Three.js and GLB/GLTF models |
+| **Spatial Asset Persistence** | Persistent browser-side storage for 3D assets using IndexedDB |
 
 
 ### UX/UI Features
@@ -59,6 +63,8 @@ A modern Single Page Application for managing a catalog of physical structures, 
 - ✅ **Error States** - User-friendly error messages with retry options
 - ✅ **Confirmation Dialogs** - Safety prompts for destructive operations
 - ✅ **Keycloak Integration** - Professional-grade AuthN/AuthZ with SSO support
+- ✅ **Interactive 3D Editor** - Live configuration of camera, model scale, and feature placement
+- ✅ **3D Hotspots** - Interactive tooltips for features within the 3D scene
 - ✅ **Toast-like Feedback** - Immediate visual confirmation of actions
 - ✅ **Smooth Animations** - CSS transitions and keyframe animations
 
@@ -67,6 +73,8 @@ A modern Single Page Application for managing a catalog of physical structures, 
 - ✅ **Angular 19+** with standalone components (no NgModules)
 - ✅ **Signals** for reactive state management
 - ✅ **Facade Pattern** for business logic isolation
+- ✅ **Three.js & WebGL** for hardware-accelerated 3D rendering
+- ✅ **IndexedDB** for large binary asset persistence (Models/Blobs)
 - ✅ **Lazy Loading** for optimized bundle sizes
 - ✅ **OnPush Change Detection** for improved performance
 - ✅ **Simulated REST API** using angular-in-memory-web-api
@@ -150,6 +158,15 @@ A modern Single Page Application for managing a catalog of physical structures, 
 | **Leaflet** | 1.9.4 | Interactive map rendering |
 | **OpenStreetMap** | - | Map tiles and geocoding services |
 | **Leaflet DistortableImage** | | Advanced planimetry overlay with 4-corner perspective distortion |
+
+### 3D & Persistence
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **Three.js** | 0.182.0 | WebGL-based 3D engine for space visualization |
+| **GLTFLoader** | - | Industry-standard 3D model importer |
+| **IndexedDB** | - | Browser-side database for persisting binary Blobs (3D models) |
+| **TransformControls** | - | Interactive 3D gizmos for object positioning |
 
 ### Development & Build
 
@@ -800,6 +817,32 @@ The platform uses `leaflet-distortableimage` to overlay floor blueprints directl
 - **Perspective Scaling**: Scaling and rotation are handled via perspective distortion between these 4 points.
 - **Coordinate HUB (HUD)**: In development/edit mode, a live JSON HUD displays the exact current corner coordinates.
 - **Copy to Clipboard**: One-click export of current alignment values for persistence in `InMemoryDataService`.
+
+---
+
+## 🧊 3D Visualization & Digital Twins
+
+### 3D Rendering Engine
+The platform integrates **Three.js** to provide a "Digital Twin" experience for internal spaces. This allows users to explore a realistic representation of the environment before physical access.
+
+- **Automated Scaling**: Built-in 3D editor allows uniform and axis-specific scaling of models.
+- **Custom Perspectives**: Administrators can define default camera entry points (X, Y, Z) and focus targets.
+- **Interactive Features**: Space features (Projectors, WiFi, etc.) are rendered as interaction-active objects with real-time hover tooltips.
+
+### Local Asset Persistence (IndexedDB)
+To ensure high performance and offline-capable 3D loading, the platform implements a specialized persistence layer:
+
+- **Bypass localStorage Limits**: Unlike the 5MB limit of `localStorage`, **IndexedDB** allows storing large GLB files (50MB+) directly in the browser.
+- **Fallback Logic**: The system automatically attempts to load models from:
+  1.  **Local IndexedDB Cache** (prioritizing user-modified versions).
+  2.  **Remote Static Assets** (`public/assets/3D/`).
+- **Memory Management**: Automatic `URL.revokeObjectURL` calls prevent memory leaks when navigating between 3D views.
+
+### Live Property Editor
+The 3D Space Editor includes a specialized sidebar for real-time model manipulation:
+- **Camera Presets**: Live sliders for X, Y, Z and FOV.
+- **Spatial Positioning**: Mathematical sliders (Pos X, Y, Z) for precise placement of assets within the 3D grid.
+- **Gizmo Integration**: Support for mouse-based dragging (TransformControls) with automatic state synchronization.
 
 ### Stability & Cleanup
 To prevent memory leaks and `getPane` errors common in Leaflet integrations:

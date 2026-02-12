@@ -8,6 +8,12 @@ export interface Space {
     capacity?: number;
     floor?: string;
     featureIds: string[];
+    modelUrl?: string;
+    cameraSettings?: {
+        position: { x: number; y: number; z: number };
+        target: { x: number; y: number; z: number };
+    };
+    modelScale?: { x: number; y: number; z: number };
     createdAt: Date;
     updatedAt: Date;
 }
@@ -19,6 +25,12 @@ export interface CreateSpaceDto {
     capacity?: number;
     floor?: string;
     featureIds?: string[];
+    modelUrl?: string;
+    cameraSettings?: {
+        position: { x: number; y: number; z: number };
+        target: { x: number; y: number; z: number };
+    };
+    modelScale?: { x: number; y: number; z: number };
 }
 
 export interface UpdateSpaceDto extends Partial<Omit<CreateSpaceDto, 'structureId'>> { }

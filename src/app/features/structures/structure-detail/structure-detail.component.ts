@@ -13,6 +13,7 @@ import {
   ErrorStateComponent,
   ConfirmDialogComponent
 } from '../../../shared/components';
+import { SpaceDetailViewerComponent } from '../space-detail-viewer/space-detail-viewer.component';
 declare const L: any;
 
 import { AuthService } from '../../../core/services/auth.service';
@@ -27,7 +28,8 @@ import { AuthService } from '../../../core/services/auth.service';
     LoadingStateComponent,
     EmptyStateComponent,
     ErrorStateComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    SpaceDetailViewerComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './structure-detail.component.html',
@@ -49,6 +51,7 @@ export class StructureDetailComponent implements OnInit, AfterViewInit, OnDestro
   spaces = signal<Space[]>([]);
 
   activeFloorId = signal<string | null>(null);
+  activeViewerSpaceId = signal<string | null>(null);
 
   showDeleteDialog = false;
   spaceToDelete: Space | null = null;
@@ -189,7 +192,7 @@ export class StructureDetailComponent implements OnInit, AfterViewInit, OnDestro
       dragging: !L.Browser.mobile
     }).setView(
       [s.coordinates.lat, s.coordinates.lng],
-      15
+      18
     );
 
     // Enable scroll zoom only when map is focused/clicked
@@ -278,6 +281,10 @@ export class StructureDetailComponent implements OnInit, AfterViewInit, OnDestro
 
   editSpace(space: Space): void {
     this.router.navigate(['/structures', this.id, 'spaces', space.id, 'edit']);
+  }
+
+  toggleViewer3D(spaceId: string): void {
+    this.activeViewerSpaceId.update(current => current === spaceId ? null : spaceId);
   }
 
   confirmDeleteSpace(space: Space): void {

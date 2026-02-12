@@ -9,7 +9,8 @@ import {
   LucideAngularModule, Search, X, Plus, Pencil, Trash2, MapPin,
   Building2, Layers, AlertTriangle, Inbox, Folder, Sun, Moon, Monitor,
   Wifi, Presentation, Accessibility, Thermometer, Video, Square, Cable,
-  Star, Users, ArrowLeft, Home, PanelLeft, LogOut, ImagePlus, Copy, Check, RefreshCw
+  Star, Users, ArrowLeft, Home, PanelLeft, LogOut, ImagePlus, Copy, Check, RefreshCw,
+  Box, Upload, RotateCcw, Mouse, Move, ZoomIn
 } from 'lucide-angular';
 
 
@@ -60,7 +61,7 @@ export const appConfig: ApplicationConfig = {
         AlertTriangle, Inbox, Folder, Sun, Moon, Monitor, Wifi,
         Presentation, Accessibility, Thermometer, Video, Square,
         Cable, Star, Users, ArrowLeft, Home, PanelLeft, LogOut, ImagePlus,
-        Copy, Check, RefreshCw
+        Copy, Check, RefreshCw, Box, Upload, RotateCcw, Mouse, Move, ZoomIn
       })
 
 

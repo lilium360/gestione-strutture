@@ -146,14 +146,28 @@
                         <span class="feature-tag">{{ feature.name }}</span>
                         }
                     </div>
-                    @if (auth.isAdmin()) {
                     <div class="space-actions">
+                        @if (space.modelUrl) {
+                        <button class="icon-btn" (click)="toggleViewer3D(space.id)" title="3D View">
+                            <lucide-icon name="box" [size]="16"></lucide-icon>
+                        </button>
+                        }
+                        @if (auth.isAdmin()) {
                         <button class="icon-btn" (click)="editSpace(space)" title="Edit">
                             <lucide-icon name="pencil" [size]="16"></lucide-icon>
                         </button>
                         <button class="icon-btn icon-btn-danger" (click)="confirmDeleteSpace(space)" title="Delete">
                             <lucide-icon name="trash-2" [size]="16"></lucide-icon>
                         </button>
+                        }
+                    </div>
+
+                    @if (activeViewerSpaceId() === space.id) {
+                    <div class="space-viewer-3d">
+                        <app-space-detail-viewer [spaceId]="space.id" [features]="getSpaceFeatures(space)"
+                            [modelUrl]="space.modelUrl" [cameraSettings]="space.cameraSettings"
+                            [modelScale]="space.modelScale">
+                        </app-space-detail-viewer>
                     </div>
                     }
                 </div>

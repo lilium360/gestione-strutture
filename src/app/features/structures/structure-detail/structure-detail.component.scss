@@ -149,6 +149,7 @@
     border: 1px solid hsl(var(--border));
     border-radius: var(--radius);
     transition: border-color 0.15s ease;
+    flex-wrap: wrap;
 }
 
 .space-item:hover {
@@ -214,6 +215,27 @@
 .space-actions {
     display: flex;
     gap: 4px;
+}
+
+// 3D Viewer expansion below space card
+.space-viewer-3d {
+    width: 100%;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid hsl(var(--border));
+    animation: viewerSlideIn 0.25s ease;
+}
+
+@keyframes viewerSlideIn {
+    from {
+        opacity: 0;
+        max-height: 0;
+    }
+
+    to {
+        opacity: 1;
+        max-height: 400px;
+    }
 }
 
 @media (max-width: 768px) {

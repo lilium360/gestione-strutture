@@ -6,6 +6,7 @@ export interface Feature {
     icon: string;
     category: FeatureCategory;
     description?: string;
+    position3D?: { x: number; y: number; z: number };
 }
 
 export interface CreateFeatureDto {

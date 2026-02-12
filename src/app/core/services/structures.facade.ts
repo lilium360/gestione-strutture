@@ -90,6 +90,7 @@ export class StructuresFacade {
         this.updateState({ loading: true, error: null });
         const update = { ...dto, id, updatedAt: new Date() };
         return this.http.put<any>(`${this.apiUrl}/${id}`, update).pipe(
+            map(() => update as Structure),
             tap(() => {
                 const structures = this._state().structures.map(s =>
                     s.id === id ? { ...s, ...update } : s
